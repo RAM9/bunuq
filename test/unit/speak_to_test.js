@@ -5,7 +5,7 @@ var vows = require('vows')
 var assert = require('assert')
 var suite = vows.describe('SpeakTo')
 var events = require('events')
-// Asyncronous Tests
+
 suite.addBatch({
   'no args': {
     topic: function () {
@@ -13,7 +13,7 @@ suite.addBatch({
       return s.speak_to(null,null)
     },
     'nothing happens': function (topic) {
-        assert.equal(topic.irc.sent().length,0)
+      assert.equal(topic.irc.sent().length,0)
     },
   },
   'no messages': {
@@ -30,8 +30,6 @@ suite.addBatch({
   'private messages a user a set of messages': {
     topic: function () {
      var promise = new(events.EventEmitter);
-
-      
       var s = SpeakTo.create(irc.mock(),1,function(self) {
         promise.emit('success',self)
       })
@@ -41,12 +39,13 @@ suite.addBatch({
       return promise
     },
     'messages come in groups of three - timeout apart': function (topic) {
-      assert.equal(topic.irc.sent().length,3)
+      if (!this.once) {
+        this.once = true
+        assert.equal(topic.irc.sent().length,3)
+      } else {
+        assert.equal(topic.irc.sent().length,4)
+      }
     },
-   
   },
-  // This is where we tell node to export the
-  // suite - this is how the vows executable
-  // passes 'run()' onto the suite
 }).export(module)
 
