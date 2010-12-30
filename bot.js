@@ -17,7 +17,7 @@ if(config.ircbot() == true) {
 
 	// logging
 	if (config.logmode() == 'nstore') {
-		var nStore = require('nStore');
+		var nStore = require('nstore');
 		var logfile = nStore.new(config.logfile(),error_f);
 	} else {
 		var logfile = config.logfile();
