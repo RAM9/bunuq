@@ -3,6 +3,9 @@ var irc = require('irc');
 var fs = require('fs');
 var json = JSON.stringify;
 var config = require('./lib/config');
+var BangLast = require('./lib/bang_last')
+var LastLog = require('./lib/last_log')
+var SpeakTo = require('./lib/speak_to')
 
 var error_f = function(err) {
   if (err)
@@ -14,6 +17,7 @@ if(config.ircbot() == true) {
 	var bot = new irc.Client(config.server(), config.nick(), {
 		channels: config.channels(),
 	});
+  var speaker = SpeakTo.create(bot) // irc client
 
 	// logging
 	if (config.logmode() == 'nstore') {
@@ -32,21 +36,32 @@ if(config.ircbot() == true) {
 
 	// temp auth 
 	var auth = config.auth();
+  //=== !last
+  var lastlog = LastLog.create(1000)
+  var bang = BangLast.create(lastlog)
 
+  var speak_if_bang_last = function(json_message) {
+    speaker.speak_to(json_message['from'],
+                     bang.run(json_message['message']))
+  }
+  
 	// load messages to screen
 	bot.addListener('message', function (from, to, message) {
-	    console.log(from + ' => ' + to + ': ' + message);
+    json_message = {date:Date(), from:from, message:message }
+    lastlog.add(json_message)
+
 		if (config.logmode() == 'nstore') {
-			logfile.save(null, {date:Date(), from:from, message:message },error_f)
+			logfile.save(null, json_message ,error_f)
 		} else {
 			var log_message = (Date() + '__' + from + ':' + message + '\n');
 			fs.write(log_fd, log_message, encoding='utf8');
 		}
-		
 		// if socket is on
 		if (!(config.webserver() == false)) {
-			socket.broadcast(json(from+' says -> '+message));
+			socket.broadcast(json(json_message));
 		}
+
+    speak_if_bang_last(json_message)
 	});
 
 	bot.addListener('pm', function (from, message) {
