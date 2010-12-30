@@ -44,9 +44,9 @@ if(config.ircbot() == true) {
 	// load messages to screen
 	bot.addListener('message', function (from, to, message) {
     json_message = {date:Date(), from:from, message:message }
+    speak_if_bang(from,message) // run query first
 
     lastlog.add(json_message)
-    speak_if_bang(from,message)
 
 		if (config.logmode() == 'nstore') {
 			logfile.save(null, json_message ,error_f)
