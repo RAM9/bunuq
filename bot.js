@@ -46,7 +46,7 @@ if(config.ircbot() == true) {
     json_message = {date:Date(), from:from, message:message }
 
     lastlog.add(json_message)
-    speak_if_bang_last(from,message)
+    speak_if_bang(from,message)
 
 		if (config.logmode() == 'nstore') {
 			logfile.save(null, json_message ,error_f)
