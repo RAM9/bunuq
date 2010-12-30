@@ -39,16 +39,14 @@ if(config.ircbot() == true) {
   //=== !last
   var lastlog = LastLog.create(1000)
   var bang = BangLast.create(lastlog)
-
-  var speak_if_bang_last = function(json_message) {
-    speaker.speak_to(json_message['from'],
-                     bang.run(json_message['message']))
-  }
+  var speak_if_bang = SpeakTo.bang_speaker(bot,bang)
   
 	// load messages to screen
 	bot.addListener('message', function (from, to, message) {
     json_message = {date:Date(), from:from, message:message }
+
     lastlog.add(json_message)
+    speak_if_bang_last(from,message)
 
 		if (config.logmode() == 'nstore') {
 			logfile.save(null, json_message ,error_f)
@@ -61,7 +59,6 @@ if(config.ircbot() == true) {
 			socket.broadcast(json(json_message));
 		}
 
-    speak_if_bang_last(json_message)
 	});
 
 	bot.addListener('pm', function (from, message) {
