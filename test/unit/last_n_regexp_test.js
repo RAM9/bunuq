@@ -27,7 +27,7 @@ suite.addBatch({
     },
     'has n with d:1': function (topic) {
       assert.deepEqual(topic.n(1), [{d:1}])
-    },
+    }
   },
   'returns last  2 elements on log': {
     // the topic function (called first)

@@ -29,8 +29,9 @@ suite.addBatch({
   },
   'private messages a user a set of messages': {
     topic: function () {
-     var promise = new(events.EventEmitter);
-      var s = SpeakTo.create(irc.mock(),1,function(self) {
+      var promise = new(events.EventEmitter)
+      var s = SpeakTo.create(irc.mock(),1000,function(self){
+        console.log('EVENT EMIT')
         promise.emit('success',self)
       })
       var who = 'fred'
@@ -38,13 +39,9 @@ suite.addBatch({
       s.speak_to(who,messages)
       return promise
     },
-    'messages come in groups of three - timeout apart': function (topic) {
-      if (!this.once) {
-        this.once = true
-        assert.equal(topic.irc.sent().length,3)
-      } else {
-        assert.equal(topic.irc.sent().length,4)
-      }
+    '3 messages at a time': function (topic) {
+      console.log('TOPIC ')
+      assert.equal(topic.irc.sent().length,3)
     },
   },
 }).export(module)

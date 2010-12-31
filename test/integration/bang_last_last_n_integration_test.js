@@ -30,9 +30,19 @@ suite.addBatch({
       var actual = topic.run("!aoeuaoueaoeu !!!") 
       assert.equal(actual,null)
     },
-   
   },
-  // This is where we tell node to export the
-  // suite - this is how the vows executable
-  // passes 'run()' onto the suite
+  'large set' : {
+    topic: function() {
+      var last_log = LastLog.create(1000)
+      for(var i = 0 ; i < 1400; i++) {
+        last_log.add({from:'mike',message:'I like chickens too - but mostly i like chicks'})
+      }
+      var c = BangLast.create(last_log)
+      return c
+    }
+    , 'matches chic' : function(topic) {
+      var actual = topic.run("!last 999 /chic/")
+      assert.equal(actual.length,999)
+    }
+  }
 }).export(module)
