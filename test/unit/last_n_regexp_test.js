@@ -29,6 +29,26 @@ suite.addBatch({
       assert.deepEqual(topic.n(1), [{d:1}])
     }
   },
+  'big log': {
+    // the topic function (called first)
+    topic: function () {
+      var last = LastLog.create(1000)
+      for(var i = 0 ; i < 700; i++) {
+        last.add({d:i})
+      }
+      return last
+    },
+    // the post conditions of the topic
+    'has 700 element': function (topic) {
+      assert.equal(topic.count(), 700)
+    },
+    'has n size 500': function (topic) {
+      assert.equal(topic.n(500).length, 500)
+    },
+    'asking for more gives you as much as we have': function (topic) {
+      assert.equal(topic.n(1000).length, 700)
+    },
+  },
   'returns last  2 elements on log': {
     // the topic function (called first)
     topic: function () {
