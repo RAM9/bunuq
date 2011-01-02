@@ -44,8 +44,9 @@ suite.addBatch({
       return if_speak_fn 
     },
     'will not send messages': function (topic) {
-      var speaker = topic('trent','aoeu!lastaoeua 10 /chickeouoeen/')
-      assert.equal(speaker.irc.sent().length,0)
+      var speaker = topic('trent','aoeu!lastaoeua 10 /chickeouoeen/',function(e,res) {
+        assert.equal(res.length,0)
+      })
     }, 
   },
   // This is where we tell node to export the
