@@ -17,11 +17,11 @@ suite.addBatch({
     // the post conditions of the topic
     '!last 3': function (topic) {
       assert.equal(topic.is().test('!last 3'),true)
-      assert.deepEqual(topic.args('!last 3'),[3,undefined])
+      assert.deepEqual(topic.args('!last 3'),[3,undefined,undefined])
     },
     '!last 999': function (topic) {
       assert.equal(topic.is().test('!last 999'),true)
-      assert.deepEqual(topic.args('!last 999'),[999,undefined])
+      assert.deepEqual(topic.args('!last 999'),[999,undefined,undefined])
     },
     '!last 1000': function (topic) {
       assert.equal(topic.is().test('!last 1000'),false)
