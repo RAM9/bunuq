@@ -37,19 +37,40 @@ var red     = require('./lib/red_whysky')
     })
 
     irc_bot.addListener('pm', function (from, message) {
-      irc_bot.say("<__" + from + '__> [pm] ' + message)
-      console.log(from + ' => TOCHO: ' + message)
+      json_message = {date:Date(), message:message }
+      irc_bot.say('robotarmy',"<__" + from + '__> [pm] ' + JSON.stringify(json_message))
     })
 
     irc_bot.addListener('error', function (message) {
-      irc_bot.say('robotarmy',message)
-      irc_bot.say('robotarmy','..........eeeaaAhh')
-      irc_bot.say('robotarmy',' o     o          ')
-      irc_bot.say('robotarmy',' <-+  -<+    \    ')
-      irc_bot.say('robotarmy',' ^     ^    >^o   ')
-      irc_bot.say('robotarmy','             +    ')
-      irc_bot.say('robotarmy','     [sepuku]     ')
-      process.exit(1)
+      irc_bot.say('robotarmy',JSON.stringify(message))
+      irc_bot.say('robotarmy','|..........eeeaaAhh|')
+      irc_bot.say('robotarmy','| o     o          |')
+      irc_bot.say('robotarmy','| <-+  -<+    \    |')
+      irc_bot.say('robotarmy','| ^     ^    >^o   |')
+      irc_bot.say('robotarmy','|             +    |')
+      irc_bot.say('robotarmy','|                  |')
+      irc_bot.say('robotarmy','|                  |')
+      irc_bot.say('robotarmy','|    [.......]     |')
+      irc_bot.say('robotarmy','|    [.......]     |')
+      irc_bot.say('robotarmy','|    [.......]     |')
+      irc_bot.say('robotarmy','|    [.......]     |')
+      irc_bot.say('robotarmy','|    [.......]     |')
+      irc_bot.say('robotarmy','|                  |')
+      irc_bot.say('robotarmy','|                  |')
+      irc_bot.say('robotarmy','|.seppuku..9.......|')
+      irc_bot.say('robotarmy','|.seppuku..8.......|')
+      irc_bot.say('robotarmy','|.seppuku..7.......|')
+      irc_bot.say('robotarmy','|..........6.......|')
+      irc_bot.say('robotarmy','|..........5.......|')
+      irc_bot.say('robotarmy','|..........4.......|')
+      irc_bot.say('robotarmy','|..........3.......|')
+      irc_bot.say('robotarmy','|..........2.......|')
+      irc_bot.say('robotarmy','|..........1.......|')
+      irc_bot.say('robotarmy','|..........0.......|')
+
+      setTimeout(function() {
+        process.exit(1)
+      },10000);
     })
 
 
