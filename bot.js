@@ -42,7 +42,9 @@ var red     = require('./lib/red_whysky')
     })
 
     irc_bot.addListener('error', function (message) {
+      console.log(JSON.stringify(message))
       irc_bot.say('robotarmy',JSON.stringify(message))
+      irc_bot.say('robotarmy','|                  |')
       irc_bot.say('robotarmy','|..........eeeaaAhh|')
       irc_bot.say('robotarmy','| o     o          |')
       irc_bot.say('robotarmy','| <-+  -<+    \    |')
