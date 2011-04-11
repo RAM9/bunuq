@@ -51,28 +51,6 @@ var red     = require('./lib/red_whysky')
       irc_bot.say('robotarmy','| ^     ^    >^o   |')
       irc_bot.say('robotarmy','|             +    |')
       irc_bot.say('robotarmy','|                  |')
-      irc_bot.say('robotarmy','|                  |')
-      irc_bot.say('robotarmy','|    [.......]     |')
-      irc_bot.say('robotarmy','|    [.......]     |')
-      irc_bot.say('robotarmy','|    [.......]     |')
-      irc_bot.say('robotarmy','|    [.......]     |')
-      irc_bot.say('robotarmy','|    [.......]     |')
-      irc_bot.say('robotarmy','|                  |')
-      irc_bot.say('robotarmy','|                  |')
-      irc_bot.say('robotarmy','|.seppuku..9.......|')
-      irc_bot.say('robotarmy','|.seppuku..8.......|')
-      irc_bot.say('robotarmy','|.seppuku..7.......|')
-      irc_bot.say('robotarmy','|..........6.......|')
-      irc_bot.say('robotarmy','|..........5.......|')
-      irc_bot.say('robotarmy','|..........4.......|')
-      irc_bot.say('robotarmy','|..........3.......|')
-      irc_bot.say('robotarmy','|..........2.......|')
-      irc_bot.say('robotarmy','|..........1.......|')
-      irc_bot.say('robotarmy','|..........0.......|')
-
-      setTimeout(function() {
-        process.exit(1)
-      },10000);
     })
 
 
